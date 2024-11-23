@@ -49,11 +49,8 @@ public class OrdersController {
     @Autowired
     private OrdersService ordersService;
     @Autowired
-    private StaffService staffService;
-    @Autowired
     private OrdersHistoryService ordersHistoryService;
-    @Autowired
-    private RepairStationStatusService repairStationStatusService;
+
     @Autowired
     RedisTemplate<Object, Object> redisTemplate;
 
