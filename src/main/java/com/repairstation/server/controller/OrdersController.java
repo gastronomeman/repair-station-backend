@@ -136,8 +136,8 @@ public class OrdersController {
             @CacheEvict(value = "order", key = "'total'"),
             @CacheEvict(value = "admin", key = "'total'"),
     })
-    @PutMapping("/chang-status1")
-    public R<String> changStatus1(@RequestBody String id) {
+    @PutMapping("/chang-status1/{id}")
+    public R<String> changStatus1(@PathVariable String id) {
         Orders orders = ordersService.getById(id);
         if (orders.getStatus() == 3) return R.error("订单已完成，不可恢复待接单");
         else if (orders.getStatus() == 1) return R.success("修改成功");
@@ -155,8 +155,8 @@ public class OrdersController {
             @CacheEvict(value = "order", key = "'total'"),
             @CacheEvict(value = "admin", key = "'total'"),
     })
-    @PutMapping("/chang-status2")
-    public R<String> changStatus2(@RequestBody String id) {
+    @PutMapping("/chang-status2/{id}")
+    public R<String> changStatus2(@PathVariable String id) {
         Orders orders = ordersService.getById(id);
         if (orders.getStatus() == 1) return R.error("没人接单，不可更改为维修中");
         else if (orders.getStatus() == 2) return R.success("修改成功");
