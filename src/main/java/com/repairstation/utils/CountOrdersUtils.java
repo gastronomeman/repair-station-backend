@@ -6,9 +6,9 @@ import com.repairstation.domain.po.OrdersHistory;
 import com.repairstation.domain.po.RepairStationStatus;
 import com.repairstation.domain.vo.AOrdersCountVo;
 import com.repairstation.domain.vo.OrderTotalVO;
-import com.repairstation.server.service.OrdersHistoryService;
-import com.repairstation.server.service.OrdersService;
-import com.repairstation.server.service.RepairStationStatusService;
+import com.repairstation.service.OrdersHistoryService;
+import com.repairstation.service.OrdersService;
+import com.repairstation.service.RepairStationStatusService;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;

@@ -5,7 +5,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.repairstation.domain.po.LinkItem;
 import com.repairstation.domain.po.WebLink;
-import com.repairstation.server.service.StaffService;
+import com.repairstation.service.StaffService;
 import com.repairstation.utils.CSVUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

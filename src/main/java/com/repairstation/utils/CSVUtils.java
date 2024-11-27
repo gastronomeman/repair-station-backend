@@ -7,7 +7,7 @@ import cn.hutool.core.util.CharsetUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.repairstation.domain.po.Staff;
 import com.repairstation.domain.vo.StaffSimpleVO;
-import com.repairstation.server.service.StaffService;
+import com.repairstation.service.StaffService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
