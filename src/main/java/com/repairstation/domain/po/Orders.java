@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.repairstation.enums.OrderIdentity;
 import com.repairstation.enums.OrderStatus;
+import com.repairstation.enums.OrderType;
 import lombok.Data;
 
 import java.io.Serial;
@@ -32,7 +33,7 @@ public class Orders implements Serializable {
      * 3.网络类
      * 4.手机类
      */
-    private Integer orderType;
+    private OrderType orderType;
     private String orderDescribe;
     /**
      * 1.待接单

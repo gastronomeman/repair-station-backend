@@ -6,6 +6,7 @@ import com.repairstation.common.R;
 import com.repairstation.domain.po.Orders;
 import com.repairstation.domain.po.Staff;
 import com.repairstation.domain.vo.FileVO;
+import com.repairstation.enums.OrderStatus;
 import com.repairstation.service.OrdersService;
 import com.repairstation.service.StaffService;
 import com.repairstation.utils.DBUtils;
@@ -89,8 +90,8 @@ public class CommonController {
             deleteDirectory(directory);
             String id = name.split("-")[0];
             Orders order = ordersService.getById(id);
-            if (order.getStatus() != 2) {
-                order.setStatus(2);
+            if (order.getStatus() != OrderStatus.REPAIR) {
+                order.setStatus(OrderStatus.REPAIR);
                 ordersService.updateById(order);
             }
 

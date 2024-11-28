@@ -1,6 +1,8 @@
 package com.repairstation.domain.po;
 
+import com.repairstation.enums.OrderIdentity;
 import com.repairstation.enums.OrderStatus;
+import com.repairstation.enums.OrderType;
 import lombok.Data;
 
 import java.io.Serial;
@@ -18,7 +20,7 @@ public class OrdersHistory implements Serializable {
      * 0.老师
      * 1.学生
      */
-    private Integer identity;
+    private OrderIdentity identity;
     private String studentId;
     private String building;
     private String dormitory;
@@ -29,7 +31,7 @@ public class OrdersHistory implements Serializable {
      * 3.网络类
      * 4.手机类
      */
-    private Integer orderType;
+    private OrderType orderType;
     private String orderDescribe;
     /**
      * 1.待接单

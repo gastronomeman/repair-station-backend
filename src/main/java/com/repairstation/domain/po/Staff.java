@@ -2,6 +2,7 @@ package com.repairstation.domain.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.repairstation.enums.PoliticalStatus;
 import lombok.Data;
 
 import java.io.Serial;
@@ -30,7 +31,7 @@ public class Staff implements Serializable {
     //2.党员
     //3.共青团员
     //4.其他
-    private Integer politicalStatus;
+    private PoliticalStatus politicalStatus;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime createTime;
