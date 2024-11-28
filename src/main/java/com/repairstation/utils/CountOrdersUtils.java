@@ -6,6 +6,7 @@ import com.repairstation.domain.po.OrdersHistory;
 import com.repairstation.domain.po.RepairStationStatus;
 import com.repairstation.domain.vo.AOrdersCountVo;
 import com.repairstation.domain.vo.OrderTotalVO;
+import com.repairstation.enums.ServerStatus;
 import com.repairstation.service.OrdersHistoryService;
 import com.repairstation.service.OrdersService;
 import com.repairstation.service.RepairStationStatusService;
@@ -180,7 +181,7 @@ public class CountOrdersUtils {
         vo.setHistoryOrderType4(CountOrdersUtils.countOrdersHistoryType43(ordersHistoryService));
 
         RepairStationStatus status = repairStationStatusService.getStatus();
-        vo.setServerStatus(status.getServerStatus() == 0);
+        vo.setServerStatus(status.getServerStatus() == ServerStatus.OPPEN);
         vo.setOrderNotice(status.getOrderNotice());
         vo.setStopNotice(status.getStopNotice());
         vo.setStaffNotice(status.getStaffNotice());

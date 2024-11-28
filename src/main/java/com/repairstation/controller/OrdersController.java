@@ -84,7 +84,7 @@ public class OrdersController {
     @Caching(evict = {
             @CacheEvict(value = "order", key = "'total'"),
             @CacheEvict(value = "admin", key = "'total'"),
-            @CacheEvict(value = "orderList1", key = "'[' + #orders.orderType + ']'")
+            @CacheEvict(value = "orderList1", key = "'[' + #orders.orderType.value + ']'")
     })
     @PostMapping
     public R<String> addOrders(@RequestBody Orders orders) {
@@ -103,8 +103,8 @@ public class OrdersController {
     @Caching(evict = {
             @CacheEvict(value = "order", key = "'total'"),
             @CacheEvict(value = "admin", key = "'total'"),
-            @CacheEvict(value = "orderList1", key = "'[' + #orders.orderType + ']'"),
-            @CacheEvict(value = "orderList2", key = "'[' + #orders.orderType + ']'")
+            @CacheEvict(value = "orderList1", key = "'[' + #orders.orderType.value + ']'"),
+            @CacheEvict(value = "orderList2", key = "'[' + #orders.orderType.value + ']'")
     })
     @PutMapping("/taking")
     public R<String> taking(HttpServletRequest req, @RequestBody Orders orders)  {
@@ -116,7 +116,7 @@ public class OrdersController {
             @CacheEvict(value = "leaderboardCache", key = "0"),
             @CacheEvict(value = "order", key = "'total'"),
             @CacheEvict(value = "admin", key = "'total'"),
-            @CacheEvict(value = "orderList2", key = "'[' + #orders.orderType + ']'")
+            @CacheEvict(value = "orderList2", key = "'[' + #orders.orderType.value + ']'")
     })
     @PutMapping("/finish-order")
     public R<String> finishOrder(@RequestBody Orders orders)  {
