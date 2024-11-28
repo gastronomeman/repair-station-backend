@@ -7,6 +7,7 @@ import cn.hutool.core.util.CharsetUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.repairstation.domain.po.Staff;
 import com.repairstation.domain.vo.StaffSimpleVO;
+import com.repairstation.enums.PoliticalStatus;
 import com.repairstation.service.StaffService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,18 +47,14 @@ public class CSVUtils {
         List<Staff> list = staffService.list(queryWrapper);
         // 写入数据
         for (Staff s : list) {
-            String politicalStatus = "";
-            int temp = 0;
+            if (s.getPoliticalStatus() == null) continue;
 
-            if (s.getPoliticalStatus() != null) temp = s.getPoliticalStatus();
+            if (s.getPoliticalStatus() == PoliticalStatus.CITIZEN) s.setPoliticalStatus(PoliticalStatus.CITIZEN);
+            else if (s.getPoliticalStatus() == PoliticalStatus.CPC) s.setPoliticalStatus(PoliticalStatus.CPC);
+            else if (s.getPoliticalStatus() == PoliticalStatus.CCYL) s.setPoliticalStatus(PoliticalStatus.CCYL);
+            else s.setPoliticalStatus(PoliticalStatus.OTHER);
 
-            if (temp == 1) politicalStatus = "群众";
-            else if (temp == 2) politicalStatus = "党员";
-            else if (temp == 3) politicalStatus = "共青团员";
-            else if (temp == 4) politicalStatus = "其他";
-            else politicalStatus = "未填";
-
-            writer.write(new String[]{s.getName(), s.getStudentId(), s.getMajor(), politicalStatus}); // 替换为实体的字段
+            writer.write(new String[]{s.getName(), s.getStudentId(), s.getMajor(), s.getPoliticalStatus().getDesc()}); // 替换为实体的字段
         }
 
         // 关闭写入器

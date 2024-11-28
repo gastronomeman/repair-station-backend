@@ -2,6 +2,8 @@ package com.repairstation.domain.dto;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.repairstation.enums.OrderIdentity;
+import com.repairstation.enums.OrderStatus;
 import lombok.Data;
 
 import java.io.Serial;
@@ -19,7 +21,7 @@ public class OrdersWithStaffNameDto implements Serializable {
      * 0.老师
      * 1.学生
      */
-    private Integer identity;
+    private OrderIdentity identity;
     private String building;
     private String dormitory;
 
@@ -29,7 +31,7 @@ public class OrdersWithStaffNameDto implements Serializable {
      * 2.维修中
      * 3.已完成
      */
-    private Integer status;
+    private OrderStatus status;
     private Long staffId;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)

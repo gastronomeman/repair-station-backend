@@ -1,6 +1,7 @@
 package com.repairstation.domain.vo;
 
 import com.repairstation.enums.OrderIdentity;
+import com.repairstation.enums.OrderStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ public class OrdersSimpleVO {
      * 2.维修中
      * 3.已完成
      */
-    private Integer status;
+    private OrderStatus status;
 
     private String staffName;
     private String staffPhone;
