@@ -1,5 +1,6 @@
 package com.repairstation.domain.vo;
 
+import com.repairstation.enums.OrderIdentity;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ public class OrdersSimpleVO {
      * 0.老师
      * 1.学生
      */
-    private Integer identity;
+    private OrderIdentity identity;
     private String building;
     private String dormitory;
 

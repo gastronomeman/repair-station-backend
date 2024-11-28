@@ -12,6 +12,7 @@ import com.repairstation.domain.vo.AOrdersCountVo;
 import com.repairstation.domain.vo.OrdersSimpleVO;
 import com.repairstation.domain.vo.OrderTotalVO;
 import com.repairstation.domain.vo.StaffOrderTotalVO;
+import com.repairstation.enums.OrderIdentity;
 import com.repairstation.service.OrdersHistoryService;
 import com.repairstation.service.OrdersService;
 import com.repairstation.utils.JWTUtils;
@@ -86,12 +87,12 @@ public class OrdersController {
     })
     @PostMapping
     public R<String> addOrders(@RequestBody Orders orders) {
-        log.info("orders: {}", orders);
-        //0是老师
-        if (orders.getIdentity() == 0) {
+        //1是老师
+        if (orders.getIdentity() == OrderIdentity.TEACHER) {
             orders.setBuilding("#");
-            orders.setStudentId("IsTeacher");
+            orders.setStudentId("TEACHER");
         }
+
         //1是待接单
         orders.setStatus(1);
 

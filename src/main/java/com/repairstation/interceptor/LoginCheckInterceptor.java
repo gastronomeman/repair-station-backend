@@ -31,12 +31,12 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         if (request.getMethod().equals("OPTIONS")) return true;
 
         //2.获取请求url
-        log.info("♪（＾∀＾●）ﾉｼ （●´∀｀）♪收到的请求是：{}", request.getRequestURI());
+        log.info("(ヾ(^▽^*)))收到的请求是：{}", request.getRequestURI());
 
 
         //3.获取请求头中的令牌（token）
         String token = request.getHeader("Authorization");
-        log.info("收到token令牌哦ヾ(^▽^*)))");
+        //log.info("收到token令牌哦ヾ(^▽^*)))");
 
         //4.判断令牌是否存在，如果不存在，返回错误结果（未登录）
         if (StringUtils.isBlank(token)) {

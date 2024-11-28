@@ -2,6 +2,7 @@ package com.repairstation.domain.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.repairstation.enums.OrderIdentity;
 import lombok.Data;
 
 import java.io.Serial;
@@ -19,7 +20,7 @@ public class Orders implements Serializable {
      * 0.老师
      * 1.学生
      */
-    private Integer identity;
+    private OrderIdentity identity;
     private String studentId;
     private String building;
     private String dormitory;
