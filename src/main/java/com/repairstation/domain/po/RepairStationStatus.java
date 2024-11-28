@@ -2,6 +2,7 @@ package com.repairstation.domain.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.repairstation.enums.ServerStatus;
 import lombok.Data;
 
 import java.io.Serial;
@@ -19,7 +20,7 @@ public class RepairStationStatus implements Serializable {
      * 0.开启
      * 1.关闭
      */
-    private Integer serverStatus;
+    private ServerStatus serverStatus;
 
     private String orderNotice;
     private String stopNotice;

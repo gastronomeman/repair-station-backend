@@ -2,6 +2,7 @@ package com.repairstation.controller;
 
 import com.repairstation.common.R;
 import com.repairstation.domain.po.RepairStationStatus;
+import com.repairstation.enums.ServerStatus;
 import com.repairstation.service.RepairStationStatusService;
 import com.repairstation.utils.JWTUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -74,8 +75,8 @@ public class RepairStationStatusController {
     public R<String> changeStatus() {
         RepairStationStatus rs = repairStationStatusService.getStatus();
 
-        if (rs.getServerStatus() == 0) rs.setServerStatus(1);
-        else rs.setServerStatus(0);
+        if (rs.getServerStatus() == ServerStatus.OPPEN) rs.setServerStatus(ServerStatus.CLOSED);
+        else rs.setServerStatus(ServerStatus.OPPEN);
 
         repairStationStatusService.updateById(rs);
         return R.success("服务器切换状态成功");
