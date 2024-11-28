@@ -11,6 +11,7 @@ import com.repairstation.domain.po.Staff;
 import com.repairstation.domain.vo.AOrdersCountVo;
 import com.repairstation.domain.vo.OrderTotalVO;
 import com.repairstation.domain.vo.OrdersSimpleVO;
+import com.repairstation.enums.OrderStatus;
 import com.repairstation.mapper.OrdersMapper;
 import com.repairstation.service.OrdersHistoryService;
 import com.repairstation.service.OrdersService;
@@ -132,11 +133,11 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             R.error("请去完善个人信息后再接单哦！");
 
 
-        if (this.getById(orders.getId()).getStatus() == 2) return R.error("已有人接单，请刷新一下吧");
+        if (this.getById(orders.getId()).getStatus() == OrderStatus.REPAIR) return R.error("已有人接单，请刷新一下吧");
 
 
         orders.setStaffId(id);
-        orders.setStatus(2);
+        orders.setStatus(OrderStatus.REPAIR);
 
         this.updateById(orders);
 

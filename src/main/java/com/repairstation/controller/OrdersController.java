@@ -13,6 +13,7 @@ import com.repairstation.domain.vo.OrdersSimpleVO;
 import com.repairstation.domain.vo.OrderTotalVO;
 import com.repairstation.domain.vo.StaffOrderTotalVO;
 import com.repairstation.enums.OrderIdentity;
+import com.repairstation.enums.OrderStatus;
 import com.repairstation.service.OrdersHistoryService;
 import com.repairstation.service.OrdersService;
 import com.repairstation.utils.JWTUtils;
@@ -87,14 +88,13 @@ public class OrdersController {
     })
     @PostMapping
     public R<String> addOrders(@RequestBody Orders orders) {
-        //1是老师
         if (orders.getIdentity() == OrderIdentity.TEACHER) {
             orders.setBuilding("#");
             orders.setStudentId("TEACHER");
         }
 
-        //1是待接单
-        orders.setStatus(1);
+        //OrderStatus.WAIT是等待接单
+        orders.setStatus(OrderStatus.WAIT);
 
         ordersService.save(orders);
         return R.success("添加成功");
@@ -120,7 +120,7 @@ public class OrdersController {
     })
     @PutMapping("/finish-order")
     public R<String> finishOrder(@RequestBody Orders orders)  {
-        orders.setStatus(3);
+        orders.setStatus(OrderStatus.COMPLETE);
         orders.setCompletionTime(LocalDateTime.now());
 
         ordersService.updateById(orders);
@@ -135,10 +135,10 @@ public class OrdersController {
     @PutMapping("/chang-status1/{id}")
     public R<String> changStatus1(@PathVariable String id) {
         Orders orders = ordersService.getById(id);
-        if (orders.getStatus() == 3) return R.error("订单已完成，不可恢复待接单");
-        else if (orders.getStatus() == 1) return R.success("修改成功");
+        if (orders.getStatus() == OrderStatus.COMPLETE) return R.error("订单已完成，不可恢复待接单");
+        else if (orders.getStatus() == OrderStatus.WAIT) return R.success("修改成功");
 
-        orders.setStatus(1);
+        orders.setStatus(OrderStatus.WAIT);
         orders.setAssignor(orders.getStaffId());
         ordersService.updateById(orders);
 
@@ -154,10 +154,10 @@ public class OrdersController {
     @PutMapping("/chang-status2/{id}")
     public R<String> changStatus2(@PathVariable String id) {
         Orders orders = ordersService.getById(id);
-        if (orders.getStatus() == 1) return R.error("没人接单，不可更改为维修中");
-        else if (orders.getStatus() == 2) return R.success("修改成功");
+        if (orders.getStatus() == OrderStatus.WAIT) return R.error("没人接单，不可更改为维修中");
+        else if (orders.getStatus() == OrderStatus.REPAIR) return R.success("修改成功");
 
-        orders.setStatus(2);
+        orders.setStatus(OrderStatus.REPAIR);
         ordersService.updateById(orders);
 
         RedisUtils.removeOrderList(redisTemplate);
@@ -171,7 +171,7 @@ public class OrdersController {
 
         if (orders.getAssignor() != null) return R.error("订单已转让过，不可再次转让！");
 
-        orders.setStatus(1);
+        orders.setStatus(OrderStatus.WAIT);
         orders.setAssignor(orders.getStaffId());
         orders.setStaffId(null);
 

@@ -1,5 +1,6 @@
 package com.repairstation.domain.po;
 
+import com.repairstation.enums.OrderStatus;
 import lombok.Data;
 
 import java.io.Serial;
@@ -35,7 +36,7 @@ public class OrdersHistory implements Serializable {
      * 2.维修中
      * 3.已完成
      */
-    private Integer status;
+    private OrderStatus status;
     private Long staffId;
 
 

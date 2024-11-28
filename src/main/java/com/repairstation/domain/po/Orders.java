@@ -3,6 +3,7 @@ package com.repairstation.domain.po;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.repairstation.enums.OrderIdentity;
+import com.repairstation.enums.OrderStatus;
 import lombok.Data;
 
 import java.io.Serial;
@@ -39,7 +40,7 @@ public class Orders implements Serializable {
      * 3.已完成
      * 4.作废
      */
-    private Integer status;
+    private OrderStatus status;
     private Long staffId;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
