@@ -36,6 +36,19 @@ spring:
       max-file-size: 360MB
       max-request-size: 360MB
       file-size-threshold: 10MB
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 1852520162@qq.com
+    password: hlwvudhuvxcyddha
+    properties:
+      mail:
+        smtp:
+          auth: true                 # 启用 SMTP 身份验证
+          starttls:
+            enable: true             # 启用 STARTTLS，加密连接
+            required: true           # 强制使用加密连接
+      default-encoding: UTF-8          # 设置邮件的默认编码为 UTF-8
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
@@ -47,6 +60,7 @@ mybatis-plus:
 
 project-config:
   web-url: http://localhost:5173
+  email: 1305573134@qq.com
   base-path: D:/
   csv-path: "${project-config.base-path}/csv"
   database-backup-path: "${project-config.base-path}/DB-backup"

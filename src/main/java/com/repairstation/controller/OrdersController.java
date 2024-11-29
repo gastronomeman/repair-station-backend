@@ -88,15 +88,7 @@ public class OrdersController {
     })
     @PostMapping
     public R<String> addOrders(@RequestBody Orders orders) {
-        if (orders.getIdentity() == OrderIdentity.TEACHER) {
-            orders.setBuilding("#");
-            orders.setStudentId("TEACHER");
-        }
-
-        //OrderStatus.WAIT是等待接单
-        orders.setStatus(OrderStatus.WAIT);
-
-        ordersService.save(orders);
+        ordersService.addOrder(orders);
         return R.success("添加成功");
     }
 
@@ -109,7 +101,11 @@ public class OrdersController {
     @PutMapping("/taking")
     public R<String> taking(HttpServletRequest req, @RequestBody Orders orders)  {
         Long id = Long.valueOf(JWTUtils.getIdByRequest(req));
-        return ordersService.takingOrder(id, orders);
+        if (orders.getStatus() != OrderStatus.WAIT) return R.error("抢单失败");
+
+        ordersService.takingOrder(id, orders);
+
+        return R.success("抢单成功");
     }
 
     @Caching(evict = {

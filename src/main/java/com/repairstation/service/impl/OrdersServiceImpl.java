@@ -3,6 +3,7 @@ package com.repairstation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.repairstation.common.CustomException;
 import com.repairstation.common.R;
 import com.repairstation.domain.dto.OrdersWithStaffNameDto;
 import com.repairstation.domain.po.Orders;
@@ -11,6 +12,7 @@ import com.repairstation.domain.po.Staff;
 import com.repairstation.domain.vo.AOrdersCountVo;
 import com.repairstation.domain.vo.OrderTotalVO;
 import com.repairstation.domain.vo.OrdersSimpleVO;
+import com.repairstation.enums.OrderIdentity;
 import com.repairstation.enums.OrderStatus;
 import com.repairstation.mapper.OrdersMapper;
 import com.repairstation.service.OrdersHistoryService;
@@ -124,24 +126,36 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
-    public R<String> takingOrder(Long id, Orders orders) {
+    public void addOrder(Orders orders) {
+        if (orders.getIdentity() == OrderIdentity.TEACHER) {
+            orders.setBuilding("*");
+            orders.setStudentId("TEACHER");
+        }
+
+        //OrderStatus.WAIT是等待接单
+        orders.setStatus(OrderStatus.WAIT);
+
+        this.save(orders);
+    }
+
+    @Override
+    public void takingOrder(Long id, Orders orders) {
         //没有完善信息不能接单
         Staff s = staffService.getById(id);
         if (!(StringUtils.isNoneEmpty(s.getMajor(), s.getPhone())))
-            return R.error("请去完善个人信息后再接单哦！");
+            throw new CustomException("请完善个人信息后再接单");
         else if (s.getPoliticalStatus() == null)
-            R.error("请去完善个人信息后再接单哦！");
+            throw new CustomException("请完善个人信息后再接单");
 
 
-        if (this.getById(orders.getId()).getStatus() == OrderStatus.REPAIR) return R.error("已有人接单，请刷新一下吧");
-
+        if (this.getById(orders.getId()).getStatus() == OrderStatus.REPAIR)
+            throw new CustomException("已有人接单，请刷新重试");
 
         orders.setStaffId(id);
         orders.setStatus(OrderStatus.REPAIR);
 
         this.updateById(orders);
 
-        return R.success("接单成功");
     }
 
     @Override

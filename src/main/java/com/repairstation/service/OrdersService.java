@@ -19,7 +19,9 @@ public interface OrdersService extends IService<Orders> {
 
     AOrdersCountVo getAOrdersCount();
 
-    R<String> takingOrder(Long id, Orders orders);
+    void addOrder(Orders orders);
+
+    void takingOrder(Long id, Orders orders);
 
     void cancel(Orders orders);
 

@@ -7,6 +7,7 @@ import com.repairstation.domain.po.LinkItem;
 import com.repairstation.domain.po.WebLink;
 import com.repairstation.service.StaffService;
 import com.repairstation.utils.CSVUtils;
+import com.repairstation.utils.MailUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,10 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 
@@ -100,6 +104,17 @@ class RepairStationApplicationTests {
 
         // 打印去掉年、月、日后的天干地支
         System.out.println("天干地支 (去掉年、月、日): " + cyclicalDate);
+    }
+
+    @Autowired
+    MailUtils sendMail;
+
+    @Test
+    void test1() {
+
+        //sendMail.sendSimpleMail();
+
+
     }
 
 }
