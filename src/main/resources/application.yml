@@ -60,7 +60,7 @@ mybatis-plus:
 
 project-config:
   web-url: http://localhost:5173
-  email: 1305573134@qq.com
+  email: 1181428703@qq.com
   base-path: D:/
   csv-path: "${project-config.base-path}/csv"
   database-backup-path: "${project-config.base-path}/DB-backup"
