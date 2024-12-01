@@ -36,7 +36,7 @@
 
 ### 2. MongoDB 数据库部署
 
-MongoDB 是非关系型数据库，不需要创建数据库和表结构。只需确认 MongoDB 服务正在运行。
+在 `src/main/resources/sql/MongoDB` 目录下，提供了数据库脚本。
 
 1. **导入数据**：使用以下命令将备份的数据导入 MongoDB：
 
