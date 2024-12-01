@@ -2,6 +2,10 @@
 
 `repair-station-backend` 是校园电脑维修管理系统的后端部分，基于 Spring Boot 构建，提供 RESTful API，支持与前端部分[`repair-station-frontend`](https://gitee.com/gastronome-0_0/repair-station-frontend)的交互，实现完整的校园电脑维修管理功能。
 
+## 项目简介
+
+本项目是广东农工商职业技术学院“ITeam基地维修站”的合作项目，专注于校内电脑维修管理，通过前后端分离的架构实现高效、可靠的服务。前端基于 Vue 3 和 Vite 开发，集成了 NutUI 和 Element Plus 组件库，提供了丰富的界面组件和交互效果。
+
 ## 项目架构
 
 - **Spring Boot**: 构建后端服务，提供快速开发、部署和扩展能力。
