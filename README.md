@@ -1,76 +1,102 @@
 # repair-station-backend
 
-`repair-station-backend` 是校园电脑维修管理系统的后端部分，基于 Spring Boot 构建，提供了 RESTful API 来支持前端部分的交互。该项目与前端部分[（`repair-station-frontend`）](https://gitee.com/gastronome-0_0/repair-station-frontend)结合使用，以实现完整的校园电脑维修管理功能。
+`repair-station-backend` 是校园电脑维修管理系统的后端部分，基于 Spring Boot 构建，提供 RESTful API，支持与前端部分[`repair-station-frontend`](https://gitee.com/gastronome-0_0/repair-station-frontend)的交互，实现完整的校园电脑维修管理功能。
 
 ## 项目架构
 
-- **Spring Boot**: 用于构建后端服务，提供快速开发、部署和扩展能力。
-- **MyBatis-Plus**: 用于简化数据库操作。
-- **MySQL**: 用于存储系统的核心数据（如用户信息、维修订单等）。
-- **MongoDB**: 用于存储日志信息和非关系型数据。
-- **Redis**: 用于缓存会话数据和验证码信息，提高系统性能。
+- **Spring Boot**: 构建后端服务，提供快速开发、部署和扩展能力。
+- **MyBatis-Plus**: 简化数据库操作。
+- **MySQL**: 存储系统核心数据（如用户信息、维修订单等）。
+- **MongoDB**: 存储日志信息和非关系型数据。
+- **Redis**: 缓存会话数据和验证码信息，提高系统性能。
+
+## 数据库部署
+
+### 1. MySQL 数据库部署
+
+在 `src/main/resources/sql/MySQL` 目录下，提供了数据库脚本。执行以下 SQL 脚本来初始化 MySQL 数据库和表结构：
+
+1. **创建数据库**：首先创建数据库 `repair_station`：
+
+   ```sql
+   CREATE DATABASE repair_station;
+   ```
+
+2. **执行数据表结构脚本**：然后使用以下命令导入数据库表结构：
+
+   ```sh
+   mysql -u root -p repair_station < /path/to/backup
+   ```
+
+   替换 `/path/to/backup` 为你备份文件所在的路径。
+
+### 2. MongoDB 数据库部署
+
+MongoDB 是非关系型数据库，不需要创建数据库和表结构。只需确认 MongoDB 服务正在运行。
+
+1. **导入数据**：使用以下命令将备份的数据导入 MongoDB：
+
+   ```sh
+   mongorestore --drop --db repair_station /path/to/backup
+   ```
+
+   替换 `/path/to/backup` 为你备份文件所在的路径。
 
 ## 项目配置
 
-### 1. 数据库配置
+### 1. 设置运行配置
 
-在 `application.yml` 文件中，配置数据库连接和 Redis 设置：
+在 `application.yml` 文件中配置数据库连接和 Redis 设置，及部分文件存储位置：
 
 ```yaml
-#需要更改的选项
 spring:
   application:
     name: repair-station
   data:
-    mongodb: #mongodb的配置
-      uri: mongodb://localhost:27017/repair_station
-    redis: #redisd的配置
+    mongodb:
+      uri: mongodb://localhost:27017/repair_station  # MongoDB 配置
+    redis:
       host: localhost
       port: 6379
-      database: 0
-  datasource: #mysql的配置
+      database: 0  # Redis 配置
+  datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/repair_station
+    url: jdbc:mysql://localhost:3306/repair_station  # MySQL 配置
     username: root
     password: 123456
   mail:
     host: smtp.qq.com
     port: 587
-    username: 邮箱地址              #发送消息的邮箱，确保开通POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务
-    password: hlwvudhuvxcyddha    #邮箱授权码
+    username: your_email@example.com  # 发送邮件的邮箱地址
+    password: your_email_authorization_code  # 邮箱授权码
     properties:
-project-config: #自定义的配置
-  web-url: http://localhost:5173 # 跨域链接，前端的 URL
-  email: 邮箱地址                 # 给管理员发送邮箱提示的邮箱
-  base-path: D:/                # 设置数据库备份，照片等的存储位置
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
 
+project-config:  # 自定义配置
+  web-url: http://localhost:5173  # 前端应用的 URL
+  email: your_admin_email@example.com  # 管理员邮箱
+  base-path: D:/  # 数据库备份、照片等存储路径
 ```
 
-### 2. 运行该项目
+### 2. 项目运行
 
-1. 使用 Maven 构建项目：
+1. **构建项目**：把项目文件整体拖入IDEA，更新pom.xml
 
-   - 使用 Maven 构建：
-
-     ```sh
-     mvn clean install
-     ```
-
-2. 运行项目：
-    - 
+2. **运行项目**：运行RepairStationApplication.java文件
 
    默认情况下，后端服务会启动在 `http://localhost:8099`，请确保该端口没有被占用。
 
 ## 前后端地址
 
-- **前端项目**：`repair-station-app`，请在该项目的 `public/config.js` 文件中配置正确的后端 API 地址。
-  - 前端项目地址：[https://gitee.com/gastronome-0_0/repair-station-app](https://gitee.com/gastronome-0_0/repair-station-app)
+- **前端项目**：`repair-station-frontend`，在前端项目的 `public/config.js` 文件中配置正确的后端 API 地址。
+    - 前端项目地址：[https://gitee.com/gastronome-0_0/repair-station-frontend](https://gitee.com/gastronome-0_0/repair-station-frontend)
 
-- **后端项目**：`repair-station-backend`，此项目提供后端服务支持。
-  - 后端项目地址：[https://gitee.com/gastronome-0_0/repair-station-backend](https://gitee.com/gastronome-0_0/repair-station-backend)
+- **后端项目**：`repair-station-backend`，提供后端服务支持。
+    - 后端项目地址：[https://gitee.com/gastronome-0_0/repair-station-backend](https://gitee.com/gastronome-0_0/repair-station-backend)
 
-## 联系
+## 联系方式
 
 如有任何问题或建议，欢迎联系我：
 
