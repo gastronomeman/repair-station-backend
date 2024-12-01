@@ -47,7 +47,8 @@ MongoDB 是非关系型数据库，不需要创建数据库和表结构。只需
    替换 `/path/to/backup` 为你备份文件所在的路径。
 
 ## 项目配置
-### 1. 把项目文件整体拖入IDEA，更新pom.xml
+### 1. 文件导入IDEA
+下载文件下来后，拖进IDEA里面，然后打开pom.xml文件，点击右上角的更新提示加载文件。
 
 ### 2. 设置运行配置
 
@@ -91,10 +92,10 @@ project-config:  # 自定义配置
 ### 3. 项目运行
  
 1. **运行前,编译器需要安装Lombok插件**：
-   - 如果使用的是 IntelliJ IDEA：打开 IDE，点击 File -> Settings -> Plugins。
+   - 如果使用的是 IntelliJ IDEA：打开 IDE，点击 `File -> Settings -> Plugins`。
    - 搜索 Lombok，然后点击 Install 安装插件。
 
-2. **运行项目**：运行RepairStationApplication.java文件
+2. **运行项目**：运行`RepairStationApplication.java`文件
 
    默认情况下，后端服务会启动在 `http://localhost:8099`，请确保该端口没有被占用。
 
