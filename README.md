@@ -5,7 +5,6 @@
 ## 项目架构
 
 - **Spring Boot**: 用于构建后端服务，提供快速开发、部署和扩展能力。
-- **Spring Security**: 用于实现用户身份验证和权限控制。
 - **MyBatis-Plus**: 用于简化数据库操作。
 - **MySQL**: 用于存储系统的核心数据（如用户信息、维修订单等）。
 - **MongoDB**: 用于存储日志信息和非关系型数据。
@@ -18,21 +17,34 @@
 在 `application.yml` 文件中，配置数据库连接和 Redis 设置：
 
 ```yaml
+#需要更改的选项
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/repair_station?useUnicode=true&characterEncoding=utf8
-    username: your-username
-    password: your-password
+  application:
+    name: repair-station
+  data:
+    mongodb: #mongodb的配置
+      uri: mongodb://localhost:27017/repair_station
+    redis: #redisd的配置
+      host: localhost
+      port: 6379
+      database: 0
+  datasource: #mysql的配置
+    type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      pool-name: HikariCP
-      maximum-pool-size: 10
+    url: jdbc:mysql://localhost:3306/repair_station
+    username: root
+    password: 123456
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 邮箱地址              #发送消息的邮箱，确保开通POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务
+    password: hlwvudhuvxcyddha    #邮箱授权码
+    properties:
+project-config: #自定义的配置
+  web-url: http://localhost:5173 #跨域链接，这个是前端域名
+  email: 邮箱地址                 #给管理员发送邮箱提示的邮箱
+  base-path: D:/                #设置数据库备份，照片等的存储位置
 
-  redis:
-    host: localhost
-    port: 6379
-    password: your-redis-password
-    database: 0
 ```
 
 ### 2. 后端 API 地址
@@ -95,17 +107,8 @@ window.config = {
 - **后端项目**：`repair-station-backend`，此项目提供后端服务支持。
   - 后端项目地址：[https://gitee.com/gastronome-0_0/repair-station-backend](https://gitee.com/gastronome-0_0/repair-station-backend)
 
-## 贡献
-
-欢迎提出问题、提交 bug 或者贡献代码。我们鼓励社区成员积极参与项目的改进。请通过 GitHub 或 Gitee 提交问题或 PR。
-
 ## 联系
 
 如有任何问题或建议，欢迎联系我：
 
-- 项目源码：[Gitee 仓库](https://gitee.com/gastronome-0_0/repair-station-backend)
-- 电子邮件：[your-email@example.com](mailto:your-email@example.com)
-
----
-
-这个 `README` 更加简洁地说明了项目的基本信息、配置方法和前后端连接。你可以根据实际需求进一步调整。
+- 电子邮件：[1305573134@qq.com](mailto:1305573134@qq.com)
