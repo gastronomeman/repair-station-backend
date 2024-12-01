@@ -2,6 +2,10 @@
 
 `repair-station-backend` 是校园电脑维修管理系统的后端部分，基于 Spring Boot 构建，提供 RESTful API，支持与前端部分[`repair-station-frontend`](https://gitee.com/gastronome-0_0/repair-station-frontend)的交互，实现完整的校园电脑维修管理功能。
 
+## 项目简介
+
+本项目是广东农工商职业技术学院“ITeam基地维修站”的合作项目，专注于校内电脑维修管理，通过前后端分离的架构实现高效、可靠的服务。
+
 ## 项目架构
 
 - **Spring Boot**: 构建后端服务，提供快速开发、部署和扩展能力。
@@ -96,7 +100,7 @@ project-config:  # 自定义配置
 
 ## 前后端地址
 
-- **前端项目**：`repair-station-frontend`，在前端项目的 `public/config.js` 文件中配置正确的后端 API 地址。
+- **前端项目**：`repair-station-frontend`，需在前端项目的 `public/config.js` 文件中配置正确的后端 API 地址。
     - 前端项目地址：[https://gitee.com/gastronome-0_0/repair-station-frontend](https://gitee.com/gastronome-0_0/repair-station-frontend)
 
 - **后端项目**：`repair-station-backend`，提供后端服务支持。
