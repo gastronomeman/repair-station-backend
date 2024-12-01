@@ -86,8 +86,12 @@ project-config:  # 自定义配置
 ### 2. 项目运行
 
 1. **构建项目**：把项目文件整体拖入IDEA，更新pom.xml
+   
+2. **运行前,编译器需要安装Lombok插件**：
+   - 如果使用的是 IntelliJ IDEA：打开 IDE，点击 File -> Settings -> Plugins。
+   - 搜索 Lombok，然后点击 Install 安装插件。
 
-2. **运行项目**：运行RepairStationApplication.java文件
+3. **运行项目**：运行RepairStationApplication.java文件
 
    默认情况下，后端服务会启动在 `http://localhost:8099`，请确保该端口没有被占用。
 
