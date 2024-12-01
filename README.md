@@ -55,16 +55,19 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/repair_station  # MongoDB 配置
+      
     redis:
       host: localhost
       port: 6379
       database: 0  # Redis 配置
+      
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/repair_station  # MySQL 配置
     username: root
     password: 123456
+    
   mail:
     host: smtp.qq.com
     port: 587
