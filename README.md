@@ -101,7 +101,7 @@ project-config:  # 自定义配置
 
 ## 前后端地址
 
-- **前端项目**：`repair-station-frontend`，在前端项目的 `public/config.js` 文件中配置正确的后端 API 地址。
+- **前端项目**：`repair-station-frontend`，需在前端项目的 `public/config.js` 文件中配置正确的后端 API 地址。
     - 前端项目地址：[https://gitee.com/gastronome-0_0/repair-station-frontend](https://gitee.com/gastronome-0_0/repair-station-frontend)
 
 - **后端项目**：`repair-station-backend`，提供后端服务支持。
