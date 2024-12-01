@@ -41,37 +41,15 @@ spring:
     password: hlwvudhuvxcyddha    #邮箱授权码
     properties:
 project-config: #自定义的配置
-  web-url: http://localhost:5173 #跨域链接，这个是前端域名
-  email: 邮箱地址                 #给管理员发送邮箱提示的邮箱
-  base-path: D:/                #设置数据库备份，照片等的存储位置
+  web-url: http://localhost:5173 # 跨域链接，前端的 URL
+  email: 邮箱地址                 # 给管理员发送邮箱提示的邮箱
+  base-path: D:/                # 设置数据库备份，照片等的存储位置
 
 ```
 
-### 2. 后端 API 地址
+### 2. 运行该项目
 
-前端项目需要与后端进行数据交互，请确保后端 API 地址正确配置。你可以在 `public/config.js` 中配置后端的 API 地址：
-
-```js
-window.config = {
-  apiBaseUrl: "https://your-backend-api-url"  // 这里是后端的实际 API 地址
-};
-```
-
-### 3. 运行该项目
-
-1. 克隆该项目：
-
-   ```sh
-   git clone https://gitee.com/gastronome-0_0/repair-station-backend.git
-   ```
-
-2. 进入项目目录：
-
-   ```sh
-   cd repair-station-backend
-   ```
-
-3. 使用 Maven 或 Gradle 构建项目：
+1. 使用 Maven 构建项目：
 
    - 使用 Maven 构建：
 
@@ -79,25 +57,10 @@ window.config = {
      mvn clean install
      ```
 
-   - 使用 Gradle 构建：
+2. 运行项目：
+    - 
 
-     ```sh
-     gradle build
-     ```
-
-4. 运行项目：
-
-   ```sh
-   mvn spring-boot:run
-   ```
-
-   或者通过生成的 `jar` 文件启动：
-
-   ```sh
-   java -jar target/repair-station-backend-1.0.0.jar
-   ```
-
-   默认情况下，后端服务会启动在 `http://localhost:8080`，请确保该端口没有被占用。
+   默认情况下，后端服务会启动在 `http://localhost:8099`，请确保该端口没有被占用。
 
 ## 前后端地址
 
