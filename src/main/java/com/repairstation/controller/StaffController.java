@@ -114,7 +114,6 @@ public class StaffController {
 
     @GetMapping("/staff-list")
     public R<Page<Staff>> getStaffList(int page, int pageSize, String name) {
-        log.info("执行分页查询...");
         Page<Staff> staffPage = new Page<>(page, pageSize);
 
         LambdaQueryWrapper<Staff> queryWrapper = new LambdaQueryWrapper<>();
