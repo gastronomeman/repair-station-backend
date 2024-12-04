@@ -9,8 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com</groupId>
-    <artifactId>repair-station</artifactId>
+    <artifactId>repair-station-backend</artifactId>
     <version>0.0.1</version>
+    <packaging>pom</packaging>
     <name>repair-station</name>
     <description>repair-station</description>
     <url/>
@@ -20,6 +21,13 @@
     <developers>
         <developer/>
     </developers>
+    <modules>
+        <module>repair-service</module>
+        <module>exam-service</module>
+        <module>tool-service</module>
+        <module>repair-station-core</module>
+        <module>common</module>
+    </modules>
     <scm>
         <connection/>
         <developerConnection/>
@@ -42,11 +50,6 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <!-- Spring Boot Web启动器，包括嵌入式Tomcat、Spring MVC等 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
 
         <!-- Spring Boot 测试启动器，包括JUnit、Mockito等 -->
         <dependency>
@@ -60,26 +63,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
-
-        <!--发送邮件-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
         <!--引入redis的starter依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
-        <!--对 MongoDB 进行操作-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
 
         <!-- MySQL数据库连接器，用于连接MySQL数据库 -->
@@ -102,62 +89,28 @@
             <version>1.2.22</version>
         </dependency>
 
-        <!-- Apache Commons Lang 库，提供对 Java 核心类库的扩展功能 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.15.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.16.1</version>
-        </dependency>
-
-
         <!-- Lombok 库，用于简化Java代码，自动生成getter、setter等 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--用hutool工具生成验证码图片-->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.26</version>
-        </dependency>
-        <!--拼音库-->
-        <dependency>
-            <groupId>io.github.biezhi</groupId>
-            <artifactId>TinyPinyin</artifactId>
-            <version>2.0.3.RELEASE</version>
-        </dependency>
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <source>17</source> <!-- depending on your project -->
+                        <target>17</target> <!-- depending on your project -->
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
-    <repositories>
-        <repository>
-            <id>maven_central</id>
-            <name>Maven Central</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
-        </repository>
-    </repositories>
 </project>

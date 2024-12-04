@@ -50,9 +50,9 @@
 ### 1. 文件导入IDEA
 下载文件下来后，拖进`IDEA`里面，然后打开`pom.xml`文件，点击右上角的更新提示加载文件。
 
-### 2. 设置运行配置
+### 2. 设置运行配置application.yml
 
-在 `application.yml` 文件中配置数据库连接设置，及部分文件存储位置：
+在 `repair-station-core/src/main/resources/application.yml` 文件中配置数据库连接设置，及部分文件存储位置：
 
 ```yaml
 spring:
@@ -95,8 +95,9 @@ project-config:  # 自定义配置
    - 如果使用的是 IntelliJ IDEA：打开 IDE，点击 `File -> Settings -> Plugins`。
    - 搜索 Lombok，然后点击 Install 安装插件。
 
-2. **运行项目**：运行`RepairStationApplication.java`文件
+2. **运行项目**：运行`RSCoreApplication.java`文件
 
+   启动类的仓库根路径是`repair-station-core/src/main/java/com/rs/RSCoreApplication.java`，
    默认情况下，后端服务会启动在 `http://localhost:8099`，请确保该端口没有被占用。
 
 ## 前后端地址
