@@ -58,9 +58,9 @@ public class StaffController {
         queryWrapper.eq(Staff::getPassword, password);
         queryWrapper.eq(Staff::getStudentId, staff.getStudentId());
 
-        if (staffService.count(queryWrapper) != 1) return R.error("账号或密码错误请重新登陆");
-
         Staff staffOne = staffService.getOne(queryWrapper);
+
+        if (staffOne == null) return R.error("账号或密码错误请重新登陆");
 
         //生成JWT令牌
         Map<String, Object> map = new HashMap<>();
