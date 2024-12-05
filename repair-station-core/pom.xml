@@ -38,11 +38,6 @@
             <artifactId>common</artifactId>
             <version>0.0.1</version>
         </dependency>
-        <!-- Spring Boot Web启动器，包括嵌入式Tomcat、Spring MVC等 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <!--用hutool工具-->
         <dependency>
             <groupId>cn.hutool</groupId>
