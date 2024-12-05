@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.jwt.JWTPayload;
 import com.rs.common.R;
+import com.rs.domain.po.Staff;
 import com.rs.utils.JWTUtils;
 import com.rs.utils.RSRedisUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,13 +53,13 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             JWTPayload jwtPayload = JWTUtils.parseJWT(token);
             //获取标题直接跳过，避免重复添加项目
 
-            Map<String, Object> map = new HashMap<>();
-            map.put("id", jwtPayload.getClaim("id"));
-            map.put("studentId", jwtPayload.getClaim("studentId"));
-            map.put("name", jwtPayload.getClaim("name"));
+            Staff staff = new Staff();
+            staff.setId((Long) jwtPayload.getClaim("id"));
+            staff.setStudentId((String) jwtPayload.getClaim("studentId"));
+            staff.setName((String) jwtPayload.getClaim("name"));
 
             //检查是否重复登录
-            if(!RSRedisUtils.saveStaff(redisTemplate, token, map)){
+            if(!RSRedisUtils.saveStaff(redisTemplate, token, staff)){
                 sendOntOnly(response);
                 return false;
             }
