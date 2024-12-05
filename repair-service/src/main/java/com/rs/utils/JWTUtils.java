@@ -24,7 +24,7 @@ public class JWTUtils {
     /**
      * 对消息封装成jwt令牌
      *
-     * @param claims 要设置的键值对数据
+     * @param staff 要设置的键值对数据
      * @param salt   需要添加的盐
      * @return
      */
