@@ -63,14 +63,9 @@ public class StaffController {
         if (staffOne == null) return R.error("账号或密码错误请重新登陆");
 
         //生成JWT令牌
-        Map<String, Object> map = new HashMap<>();
-        //id一定要变字符串，Long类型转换会有问题的
-        map.put("id", String.valueOf(staffOne.getId()));
-        map.put("studentId", staffOne.getStudentId());
-        map.put("name", staffOne.getName());
+        String jwt = JWTUtils.generateJwt(staffOne, password);
 
-        String jwt = JWTUtils.generateJwt(map, password);
-        if (!RSRedisUtils.saveStaff(redisTemplate, jwt, map)) {
+        if (!RSRedisUtils.saveStaff(redisTemplate, jwt, staffOne)) {
             log.info("拒绝登录");
             return R.error("检测到账号已在别的设备登录<br />请退出登录后重新尝试<br />╮(๑•́ ₃•̀๑)╭");
         }

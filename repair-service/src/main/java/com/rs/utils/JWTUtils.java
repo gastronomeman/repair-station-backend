@@ -8,10 +8,12 @@ import cn.hutool.jwt.JWTUtil;
 import cn.hutool.jwt.JWTValidator;
 
 import com.rs.common.CustomException;
+import com.rs.domain.po.Staff;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,13 +28,19 @@ public class JWTUtils {
      * @param salt   需要添加的盐
      * @return
      */
-    public static String generateJwt(Map<String, Object> claims, String salt) {
+    public static String generateJwt(Staff staff, String salt) {
         String SIGNING_KEY = "祝愿ITeam基地维修站越办越好！✧*｡ (ˊᗜˋ*) ✧*！" + salt;
         SIGNING_KEY += UUID.randomUUID().toString().replace("-", "");
         // 获取当前时间
         Date now = new Date();
         // 计算过期时间
         Date expiration = new Date(now.getTime() + EXPIRE_TIME);
+
+        Map<String, Object> claims = new HashMap<>();
+        //id一定要变字符串，Long类型转换会有问题的
+        claims.put("id", String.valueOf(staff.getId()));
+        claims.put("studentId", staff.getStudentId());
+        claims.put("name", staff.getName());
 
         // 设置JWT的负载信息
         claims.put("exp", expiration);

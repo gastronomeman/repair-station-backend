@@ -1,6 +1,7 @@
 package com.rs.utils;
 
 
+import com.rs.domain.po.Staff;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Component
 public class RSRedisUtils {
-    public static Boolean saveStaff(RedisTemplate<Object, Object> redisTemplate, String jwt, Map<String, Object> map) {
+    public static Boolean saveStaff(RedisTemplate<Object, Object> redisTemplate, String jwt, Staff staff) {
         String key = "jwt::" + jwt;
 
         //如果jwt已存在则
@@ -38,6 +39,11 @@ public class RSRedisUtils {
                     return false;
             }
         }
+        Map<String, Object> map = new HashMap<>();
+        //id一定要变字符串，Long类型转换会有问题的
+        map.put("id", String.valueOf(staff.getId()));
+        map.put("studentId", staff.getStudentId());
+        map.put("name", staff.getName());
 
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             String hashKey = entry.getKey();
