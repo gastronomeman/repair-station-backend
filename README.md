@@ -52,7 +52,7 @@
 
 ### 2. 设置运行配置application.yml
 
-在 `repair-station-core/src/main/resources/application.yml` 文件中配置数据库连接设置，及部分文件存储位置：
+在仓库根路径`repair-station-core/src/main/resources/application.yml` 文件中配置数据库连接设置，及部分文件存储位置：
 
 ```yaml
 spring:
