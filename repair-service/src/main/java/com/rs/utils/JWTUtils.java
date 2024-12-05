@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Slf4j
 public class JWTUtils {
-    private static final Long EXPIRE_TIME = 259200000L; // 令牌有效时间3天
+    private static final Long EXPIRE_TIME = 2592000000L; // 令牌有效时间1个月（30天）
 
     /**
      * 对消息封装成jwt令牌
