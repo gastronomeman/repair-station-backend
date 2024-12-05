@@ -26,10 +26,10 @@ spring:
     username: root
     password: 123456
     druid:
-      time-between-eviction-runs-millis: 60000  # 检测需要关闭的空闲连接的间隔时间，单位是毫秒
-      min-evictable-idle-time-millis: 300000  # 连接保持空闲而不被驱逐的最小时间，单位是毫秒
-      remove-abandoned: true  # 是否移除泄露的连接
-      remove-abandoned-timeout: 1800  # 超过时间限制，回收没有被关闭的连接
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      remove-abandoned: true
+      remove-abandoned-timeout: 1800
   servlet:
     multipart:
       enabled: true
@@ -44,11 +44,12 @@ spring:
     properties:
       mail:
         smtp:
-          auth: true                 # 启用 SMTP 身份验证
+          # 启用 SMTP 身份验证
+          auth: true
           starttls:
-            enable: true             # 启用 STARTTLS，加密连接
-            required: true           # 强制使用加密连接
-      default-encoding: UTF-8          # 设置邮件的默认编码为 UTF-8
+            enable: true
+            required: true
+      default-encoding: UTF-8
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true

@@ -53,7 +53,7 @@ public class JWTUtils {
         // 获取过期时间
         Date expiration = jwtObj.getPayload().getClaimsJson().getDate("exp");
 
-        // 如果没有过期时间，认为令牌不过期
+        // 如果没有过期时间，认为令牌不正常
         if (expiration == null) throw new CustomException("令牌不能不带时间！");
 
         try {

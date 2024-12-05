@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class OrdersServiceAspect {
-    @Pointcut("execution(* com.repairstation.service.impl.OrdersServiceImpl.addOrder(..))")
+    @Pointcut("execution(* com.rs.service.impl.OrdersServiceImpl.addOrder(..))")
     public void addOrderPointCut() {}
 
     @Autowired
