@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -124,30 +126,25 @@ public class CommonController {
             log.info("uploads方法创建文件：{}", flag);
         }
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10); // 设置线程池
-        List<Future<R<String>>> futures = new ArrayList<>();
-
+        // 使用 @Async 执行文件上传
+        List<CompletableFuture<R<String>>> futures = new ArrayList<>();
         for (MultipartFile file : files) {
-            futures.add(executorService.submit(() ->
-                    upload(file, fileName))); // 提交任务
-
+            futures.add(upload(file, fileName));  // 异步执行
         }
 
-        // 处理结果
-        for (Future<R<String>> future : futures) {
+        // 等待所有任务完成并处理结果
+        for (CompletableFuture<R<String>> future : futures) {
             try {
-                R<String> result = future.get(); // 获取结果
+                R<String> result = future.get();  // 获取异步执行结果
                 if (result.getCode() == 0) {
-                    executorService.shutdown(); // 关闭线程池
-                    return result;
+                    return result;  // 如果有任务失败，立即返回
                 }
             } catch (Exception e) {
                 log.error("上传文件处理出错: {}", e.getMessage());
             }
         }
 
-        executorService.shutdown(); // 关闭线程池
-        return R.success("上传成功: ");
+        return R.success("上传成功");
     }
 
     @GetMapping("/download-photo")
@@ -253,28 +250,27 @@ public class CommonController {
     }
 
 
-    private R<String> upload(MultipartFile file, String fileName) {
+    @Async
+    public CompletableFuture<R<String>> upload(MultipartFile file, String fileName) {
         log.info("文件名是：{}", file.getOriginalFilename());
 
         String originalFilename = file.getOriginalFilename();
         if (originalFilename == null) {
             log.error("文件名为空");
-            return R.error("上传失败");
+            return CompletableFuture.completedFuture(R.error("上传失败"));
         }
-
-
 
         File destFile = new File(fileName, file.getOriginalFilename());
         try (InputStream inputStream = file.getInputStream()) {
             Files.copy(inputStream, destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             log.error("存储文件失败: {}", e.getMessage());
-            return R.error("上传失败");
+            return CompletableFuture.completedFuture(R.error("上传失败"));
         }
 
-
-        return R.success(fileName);
+        return CompletableFuture.completedFuture(R.success(fileName));
     }
+
     private void deleteDirectory(File directory) throws IOException {
         if (directory.exists()) {
             // 如果是目录，则递归删除所有文件
