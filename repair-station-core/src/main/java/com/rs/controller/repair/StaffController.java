@@ -67,6 +67,7 @@ public class StaffController {
 
 
         Map<String, Object> claims = new HashMap<>();
+
         //id一定要变字符串，Long类型转换会有问题的
         claims.put("id", String.valueOf(staffOne.getId()));
         claims.put("studentId", staffOne.getStudentId());

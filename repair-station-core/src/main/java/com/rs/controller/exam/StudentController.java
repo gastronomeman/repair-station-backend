@@ -1,6 +1,9 @@
 package com.rs.controller.exam;
 
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rs.common.R;
 import com.rs.domain.dto.StudentDto;
 import com.rs.domain.po.Student;
@@ -12,10 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/stu")
@@ -48,5 +48,23 @@ public class StudentController {
         studentService.updateById(s);
 
         return R.success("录入成功！");
+    }
+
+    @GetMapping("/page")
+    public R<Page<Student>> page(int page, int pageSize, String name) {
+        Page<Student> studentPage = new Page<>(page, pageSize);
+
+        LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
+        // 添加条件
+        if (StrUtil.isNotEmpty(name)) {
+            queryWrapper.like(Student::getName, name)
+                    .or().like(Student::getId, name);
+        }
+
+        queryWrapper.orderByDesc(Student::getCreateTime);
+
+        studentService.page(studentPage, queryWrapper);
+
+        return R.success(studentPage);
     }
 }
