@@ -34,7 +34,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 "/wxzStatus",               //获取接单状态
                 "/wxzStatus/orderTitle",    //报修页公告
                 "/wxzStatus/stopTitle",     //停止报修页
-                "/common/upload/**",        //上传图片
                 "/common/download-photo/**",//下载图片
                 "/link",                    //软件工具箱
                 "/common/download-zip",     //下载备份文件

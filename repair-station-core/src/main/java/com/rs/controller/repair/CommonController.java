@@ -124,7 +124,7 @@ public class CommonController {
             log.info("uploads方法创建文件：{}", flag);
         }
 
-        ExecutorService executorService = Executors.newFixedThreadPool(20); // 设置线程池
+        ExecutorService executorService = Executors.newFixedThreadPool(10); // 设置线程池
         List<Future<R<String>>> futures = new ArrayList<>();
 
         for (MultipartFile file : files) {
