@@ -33,6 +33,7 @@ import java.util.List;
 
 @Service
 @Slf4j
+@Transactional
 public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> implements OrdersService {
     @Autowired
     private RepairStationStatusService repairStationStatusService;
@@ -179,7 +180,6 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
-    @Transactional
     public void changeSql() {
         List<Orders> list = list();
 
