@@ -287,12 +287,6 @@ public class OrdersController {
         return R.success("完成作废");
     }
 
-    @PostMapping("/check-repeat")
-    public R<String> checkRepeat(@RequestBody Orders order) {
-        String id = ordersService.checkRepeat(order);
-        return R.success(id);
-    }
-
 
     private <T> R<Page<T>> getOrdersPage(HttpServletRequest req, int page, int pageSize, String name,
                                          IService<T> service,

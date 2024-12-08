@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -77,6 +78,8 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     private void sendNotLogin(HttpServletResponse response) throws IOException {
         //创建响应结果对象
         R<Object> responseResult = R.error("not_login");
+        // 设置状态码为 401（未授权）
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
         //把R对象转换为JSON格式字符串
         String json = JSONUtil.toJsonStr(responseResult);
         //设置响应头（告知浏览器：响应的数据类型为json、响应的数据编码表为utf-8）

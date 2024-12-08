@@ -25,7 +25,6 @@ public interface OrdersService extends IService<Orders> {
 
     void cancel(Orders orders);
 
-    String checkRepeat(Orders orders);
 
     void changeSql();
 }

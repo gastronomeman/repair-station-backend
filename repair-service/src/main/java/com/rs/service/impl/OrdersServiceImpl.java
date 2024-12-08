@@ -133,6 +133,13 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             orders.setStudentId("TEACHER");
         }
 
+        LambdaQueryWrapper<Orders> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Orders::getStudentId, orders.getStudentId())
+                .and(w -> w.eq(Orders::getStatus, 1).or().eq(Orders::getStatus, 2));
+
+        long count = this.count(wrapper);
+        if (count > 0) throw new CustomException("订单重复");
+
         //OrderStatus.WAIT是等待接单
         orders.setStatus(OrderStatus.WAIT);
 
@@ -165,19 +172,6 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         ordersMapper.cancelOrders(orders);  // 执行更新
     }
 
-    @Override
-    public String checkRepeat(Orders orders) {
-        if (StrUtil.isBlank(orders.getStudentId())) return null;
-
-        LambdaQueryWrapper<Orders> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Orders::getStudentId, orders.getStudentId())
-                .and(w -> w.eq(Orders::getStatus, 1).or().eq(Orders::getStatus, 2));
-
-        long count = this.count(wrapper);
-        if (count > 0) return orders.getStudentId();
-
-        return null;
-    }
 
     @Override
     public void changeSql() {

@@ -1,5 +1,6 @@
 package com.rs.common;
 
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,6 +17,12 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @ResponseBody
 @Slf4j
 public class GlobalExceptionHandler {
+    @ExceptionHandler(MysqlDataTruncation.class)
+    public R<String> handleDataTruncationError(MysqlDataTruncation ex) {
+        log.error("数据截断错误: {}", ex.getMessage());
+        return R.error("数据数据过长，导致异常！");
+    }
+
     /**
      * 异常处理方法
      * @return
