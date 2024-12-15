@@ -24,7 +24,7 @@ import java.util.List;
 
 @Component
 @Slf4j
-public class CSVUtils {
+public class StaffCSVUtils {
     @Autowired
     private StaffService staffService;
     @Value("${project-config.csv-path}")

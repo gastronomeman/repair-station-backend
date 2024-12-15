@@ -43,7 +43,7 @@ public class StaffController {
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;
     @Autowired
-    private CSVUtils csvUtils;
+    private StaffCSVUtils csvUtils;
 
     @PostMapping("/login")
     public R<String> login(@RequestBody Staff staff) {
