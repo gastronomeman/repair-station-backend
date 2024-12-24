@@ -1,5 +1,6 @@
 package com.rs.utils;
 
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class DBUtils {
         File DBFile = new File(DBBackupPath + File.separator + "MySQL"
                 + File.separator + getFormattedDate() + "备份");
         if (!DBFile.exists()) {
-            boolean flag = DBFile.mkdirs();
+            String flag = String.valueOf(DBFile.mkdirs());
             log.info("mysql文件夹创建成功：{}", flag);
         }
         // 指定输出文件
@@ -51,7 +52,7 @@ public class DBUtils {
         File DBFile = new File(DBBackupPath + File.separator + "MongoDB"
                 + File.separator + getFormattedDate() + "备份");
         if (!DBFile.exists()) {
-            boolean flag = DBFile.mkdirs();
+            String flag = String.valueOf(DBFile.mkdirs());
             log.info("MongoDB文件夹创建成功：{}", flag);
         }
 
