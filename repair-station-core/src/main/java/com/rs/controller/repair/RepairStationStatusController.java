@@ -69,6 +69,7 @@ public class RepairStationStatusController {
 
     @Caching(evict = {
             @CacheEvict(value = "admin", key = "'total'"),// admin面板的申请也有title
+            @CacheEvict(value = "wxzCache", key = "'status'"),
             @CacheEvict(value = "wxzCache", key = "'status'")
     })
     @GetMapping("/chang-status")
@@ -84,7 +85,8 @@ public class RepairStationStatusController {
 
     @Caching(evict = {
             @CacheEvict(value = "admin", key = "'total'"),// admin面板的申请也有title
-            @CacheEvict(value = "wxzCache", key = "'orderTitle'")
+            @CacheEvict(value = "wxzCache", key = "'orderTitle'"),
+            @CacheEvict(value = "wxzCache", key = "'status'")
     })
     @PutMapping("/chang-order-notice")
     public R<String> changeOrderNotice(@RequestBody RepairStationStatus s) {
@@ -96,7 +98,8 @@ public class RepairStationStatusController {
 
     @Caching(evict = {
             @CacheEvict(value = "admin", key = "'total'"),// admin面板的申请也有title
-            @CacheEvict(value = "wxzCache", key = "'staffTitle'")
+            @CacheEvict(value = "wxzCache", key = "'staffTitle'"),
+            @CacheEvict(value = "wxzCache", key = "'status'")
     })
     @PutMapping("/chang-staff-notice")
     public R<String> changeStaffNotice(@RequestBody RepairStationStatus s) {
@@ -108,7 +111,8 @@ public class RepairStationStatusController {
 
     @Caching(evict = {
             @CacheEvict(value = "admin", key = "'total'"),// admin面板的申请也有title
-            @CacheEvict(value = "wxzCache", key = "'stopTitle'")
+            @CacheEvict(value = "wxzCache", key = "'stopTitle'"),
+            @CacheEvict(value = "wxzCache", key = "'status'")
     })
     @PutMapping("/chang-stop-notice")
     public R<String> changeStopNotice(@RequestBody RepairStationStatus s) {
