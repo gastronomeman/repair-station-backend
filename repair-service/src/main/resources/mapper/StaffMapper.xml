@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.rs.mapper.StaffMapper">
+    <select id="getStaffOrderCounts" resultType="com.rs.domain.vo.StaffSimpleVO">
+        SELECT s.name      AS name,
+               COUNT(o.id) AS orderCount
+        FROM staff s
+                 LEFT JOIN orders o ON s.id = o.staff_id
+        WHERE o.status = 3
+        GROUP BY s.name
+        ORDER BY orderCount DESC
+    </select>
+
+    <select id="getStaffOrderList" resultType="com.rs.domain.vo.StaffSimpleVO">
+        SELECT s.id         AS id,
+               s.name       AS name,
+               s.student_id AS studentId,
+               s.major      AS major,
+               COUNT(o.id)  AS orderCount
+        FROM staff s
+                 LEFT JOIN orders o ON s.id = o.staff_id
+        WHERE o.status = 3
+          AND o.completion_time BETWEEN #{startTime} AND #{endTime}
+        GROUP BY s.id, s.name
+        ORDER BY orderCount DESC
+    </select>
+</mapper>
