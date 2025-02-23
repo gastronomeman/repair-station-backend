@@ -64,7 +64,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             }
 
         } catch (Exception e) {
-            log.info("令牌解析失败!{}", e.getMessage());
+            log.info("令牌解析失败，{}", e.getMessage());
             //发送未登录响应给前端
             sendNotLogin(response);
             //不放行
@@ -76,6 +76,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     }
 
     private void sendNotLogin(HttpServletResponse response) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         //创建响应结果对象
         R<Object> responseResult = R.error("not_login");
         //把R对象转换为JSON格式字符串
