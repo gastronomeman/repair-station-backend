@@ -7,10 +7,12 @@ import com.rs.mapper.StaffMapper;
 import com.rs.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class StaffServiceImpl extends ServiceImpl<StaffMapper, Staff> implements StaffService {
     @Autowired
     private StaffMapper staffMapper;

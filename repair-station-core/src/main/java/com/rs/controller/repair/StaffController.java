@@ -43,7 +43,7 @@ public class StaffController {
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;
     @Autowired
-    private CSVUtils csvUtils;
+    private StaffCSVUtils csvUtils;
 
     @PostMapping("/login")
     public R<String> login(@RequestBody Staff staff) {
@@ -58,19 +58,22 @@ public class StaffController {
         queryWrapper.eq(Staff::getPassword, password);
         queryWrapper.eq(Staff::getStudentId, staff.getStudentId());
 
-        if (staffService.count(queryWrapper) != 1) return R.error("账号或密码错误请重新登陆");
-
         Staff staffOne = staffService.getOne(queryWrapper);
 
-        //生成JWT令牌
-        Map<String, Object> map = new HashMap<>();
-        //id一定要变字符串，Long类型转换会有问题的
-        map.put("id", String.valueOf(staffOne.getId()));
-        map.put("studentId", staffOne.getStudentId());
-        map.put("name", staffOne.getName());
+        if (staffOne == null) return R.error("账号或密码错误请重新登陆");
 
-        String jwt = JWTUtils.generateJwt(map, password);
-        if (!RSRedisUtils.saveStaff(redisTemplate, jwt, map)) {
+        //生成JWT令牌
+        String jwt = JWTUtils.generateJwt(staffOne, password);
+
+
+        Map<String, Object> claims = new HashMap<>();
+
+        //id一定要变字符串，Long类型转换会有问题的
+        claims.put("id", String.valueOf(staffOne.getId()));
+        claims.put("studentId", staffOne.getStudentId());
+        claims.put("name", staffOne.getName());
+
+        if (!RSRedisUtils.saveStaff(redisTemplate, jwt, claims)) {
             log.info("拒绝登录");
             return R.error("检测到账号已在别的设备登录<br />请退出登录后重新尝试<br />╮(๑•́ ₃•̀๑)╭");
         }

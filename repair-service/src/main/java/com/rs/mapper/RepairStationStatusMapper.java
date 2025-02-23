@@ -8,7 +8,5 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface RepairStationStatusMapper extends BaseMapper<RepairStationStatus> {
-
-    @Select("select * from repair_station_status where id = '0' ")
     RepairStationStatus getStatusById0();
 }

@@ -1,21 +1,28 @@
 package com.rs.controller.exam;
 
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rs.common.R;
 import com.rs.domain.dto.StudentDto;
 import com.rs.domain.po.Student;
 import com.rs.domain.vo.VerificationCode;
 import com.rs.service.StudentService;
+import com.rs.utils.DownloadUtil;
 import com.rs.utils.EXRedisUtils;
-import com.rs.utils.RSRedisUtils;
+import com.rs.utils.ScheduledUtils;
+import com.rs.utils.StudentCSVUtils;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.File;
 
 @RestController
 @RequestMapping("/stu")
@@ -25,6 +32,11 @@ public class StudentController {
     private StudentService studentService;
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;
+    @Autowired
+    private StudentCSVUtils studentCsvUtils;
+
+    @Value("${project-config.csv-path}")
+    private String csvPath;
 
     @PostMapping
     public R<Student> addStudent(@RequestBody Student student) {
@@ -48,5 +60,31 @@ public class StudentController {
         studentService.updateById(s);
 
         return R.success("录入成功！");
+    }
+
+    @GetMapping("/page")
+    public R<Page<Student>> page(int page, int pageSize, String name) {
+        Page<Student> studentPage = new Page<>(page, pageSize);
+
+        LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
+        // 添加条件
+        if (StrUtil.isNotEmpty(name)) {
+            queryWrapper.like(Student::getName, name)
+                    .or().like(Student::getId, name);
+        }
+
+        queryWrapper.orderByDesc(Student::getCreateTime);
+
+        studentService.page(studentPage, queryWrapper);
+
+        return R.success(studentPage);
+    }
+
+    @GetMapping("/csv")
+    public void getStudentCsv(HttpServletResponse response) {
+        String s = studentCsvUtils.creatStudentCSV();
+        s = csvPath + File.separator + s;
+        ScheduledUtils.delFile10Min(s);
+        DownloadUtil.download(response, s, FileUtil.getName(s));
     }
 }

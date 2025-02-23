@@ -8,6 +8,5 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface OrdersMapper extends BaseMapper<Orders> {
 
-    @Update("update orders set completion_time = #{completionTime} ,status = 4, staff_id = null, assignor = null where id = #{id}")
     void cancelOrders(Orders orders);
 }
